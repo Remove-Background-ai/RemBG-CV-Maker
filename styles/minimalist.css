@@ -1,0 +1,81 @@
+/* Minimalist Layout Styles */
+/* This is an example CSS file for contributors */
+
+.minimalist-layout {
+    /* Override default styles for minimalist design */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.minimalist-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #000;
+}
+
+.minimalist-name {
+    font-size: 28pt;
+    font-weight: 300;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.minimalist-title {
+    font-size: 16pt;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.minimalist-contact {
+    font-size: 11pt;
+    color: #666;
+}
+
+.minimalist-contact span {
+    margin: 0 8px;
+}
+
+.minimalist-section {
+    margin-bottom: 25px;
+}
+
+.minimalist-section-title {
+    font-size: 14pt;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.minimalist-content {
+    font-size: 11pt;
+    line-height: 1.5;
+}
+
+/* Print optimizations for minimalist layout */
+@media print {
+    .minimalist-layout {
+        font-size: 10pt;
+        line-height: 1.4;
+    }
+    
+    .minimalist-name {
+        font-size: 20pt;
+    }
+    
+    .minimalist-title {
+        font-size: 12pt;
+    }
+    
+    .minimalist-section-title {
+        font-size: 11pt;
+    }
+    
+    .minimalist-content {
+        font-size: 9pt;
+    }
+}

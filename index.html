@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">RemBG CV Maker - Loading...</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cv-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="name" id="cv-name">Loading...</h1>
+            <h2 class="title" id="cv-title">Loading...</h2>
+            <div class="contact-info" id="contact-info">
+                <span id="location">Loading...</span>
+                <span>|</span>
+                <span id="phone">Loading...</span>
+                <span>|</span>
+                <span id="email">Loading...</span>
+                <span>|</span>
+                <span id="email2">Loading...</span>
+            </div>
+            <div class="links" id="social-links">
+                <span>Loading...</span>
+            </div>
+        </header>
+
+        <!-- Summary -->
+        <section class="section">
+            <h3 class="section-title">Summary</h3>
+            <div class="section-content">
+                <p id="summary">Loading...</p>
+            </div>
+        </section>
+        <div class="cv-body">
+            <!-- Work Experience -->
+            <div class="left-aligned">
+                <section class="section">
+                    <h3 class="section-title">Work Experience</h3>
+                    <div class="section-content" id="work-experience">
+                        <div>Loading work experience...</div>
+                    </div>
+                </section>
+            </div>
+            <!-- Education -->
+            <div class="right-aligned">
+                <section class="section">
+                    <h3 class="section-title">Education</h3>
+                    <div class="section-content" id="education">
+                        <div>Loading education...</div>
+                    </div>
+                </section>
+
+                <!-- Software Skills -->
+                <section class="section">
+                    <h3 class="section-title">SOFTWARE SKILLS</h3>
+                    <div class="section-content skills-content" id="skills">
+                        <div>Loading skills...</div>
+                    </div>
+                </section>
+
+                <!-- Public Projects -->
+                <section class="section">
+                    <h3 class="section-title">Public Projects</h3>
+                    <div class="section-content" id="public-projects">
+                        <div>Loading projects...</div>
+                    </div>
+                </section>
+
+                <!-- Communication -->
+                <section class="section">
+                    <h3 class="section-title">COMMUNICATION</h3>
+                    <div class="section-content" id="languages">
+                        <div>Loading languages...</div>
+                    </div>
+                </section>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // CV Data Loader
+        class CVLoader {
+            constructor() {
+                this.data = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    await this.loadData();
+                    this.renderCV();
+                } catch (error) {
+                    console.error('Error loading CV data:', error);
+                    this.showError('Failed to load CV data. Please refresh the page.');
+                }
+            }
+
+            async loadData() {
+                const response = await fetch('/api/cv-data');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                this.data = await response.json();
+            }
+
+            renderCV() {
+                this.renderPersonalInfo();
+                this.renderSummary();
+                this.renderWorkExperience();
+                this.renderEducation();
+                this.renderSkills();
+                this.renderPublicProjects();
+                this.renderLanguages();
+            }
+
+            renderPersonalInfo() {
+                const { personalInfo } = this.data;
+                
+                document.getElementById('page-title').textContent = `${personalInfo.name} - CV`;
+                document.getElementById('cv-name').textContent = personalInfo.name;
+                document.getElementById('cv-title').textContent = personalInfo.title;
+                document.getElementById('location').textContent = personalInfo.location;
+                document.getElementById('phone').textContent = personalInfo.phone;
+                document.getElementById('email').textContent = personalInfo.email;
+                document.getElementById('email2').textContent = personalInfo.email2;
+
+                const socialLinks = document.getElementById('social-links');
+                socialLinks.innerHTML = `
+                    <a href="${personalInfo.links.stackoverflow}" target="_blank">StackOverflow</a>
+                    <span>|</span>
+                    <a href="${personalInfo.links.github}" target="_blank">GitHub</a>
+                    <span>|</span>
+                    <a href="${personalInfo.links.linkedin}" target="_blank">LinkedIn</a>
+                `;
+            }
+
+            renderSummary() {
+                document.getElementById('summary').textContent = this.data.summary;
+            }
+
+            renderWorkExperience() {
+                const container = document.getElementById('work-experience');
+                container.innerHTML = this.data.workExperience.map(job => `
+                    <div class="experience-item">
+                        <div class="date">${job.period}</div>
+                        <div class="content">
+                            <h4 class="job-title">${job.title} (<a href="${job.companyUrl}" target="_blank">${job.company}</a>)</h4>
+                            <div class="company-url">${job.companyDisplayUrl}</div>
+                            ${job.description ? `<p>${job.description}</p>` : ''}
+                            ${job.achievements ? `
+                                <ul>
+                                    ${job.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+                                </ul>
+                            ` : ''}
+                            ${job.technologies ? `<div class="technologies">(${job.technologies})</div>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderEducation() {
+                const container = document.getElementById('education');
+                container.innerHTML = this.data.education.map(edu => `
+                    <div class="education-item">
+                        <div class="date">${edu.period}</div>
+                        <div class="content">
+                            <h4 class="degree">${edu.degree}</h4>
+                            <div class="school">${edu.school}</div>
+                            <p>${edu.description}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderSkills() {
+                const container = document.getElementById('skills');
+                const { skills } = this.data;
+                container.innerHTML = `
+                    <div class="skill-category">
+                        <strong>TECHNOLOGIES:</strong> ${skills.technologies}
+                    </div>
+                    <div class="skill-category">
+                        <strong>BLOCKCHAIN & CRYPTO:</strong> ${skills.blockchain}
+                    </div>
+                    <div class="skill-category">
+                        <strong>DESIGN PATTERNS:</strong> ${skills.designPatterns}
+                    </div>
+                `;
+            }
+
+            renderPublicProjects() {
+                const container = document.getElementById('public-projects');
+                container.innerHTML = this.data.publicProjects.map(project => `
+                    <div class="project-item">
+                        <div class="project-year">${project.year}</div>
+                        <div class="project-content">
+                            <strong>${project.title}${project.url ? `: <a href="${project.url}" target="_blank">${project.displayUrl}</a>` : ''}</strong><br>
+                            <span class="project-tech">${project.description}</span><br>
+                            ${project.additionalInfo ? `<span class="project-tech">${project.additionalInfo}</span><br>` : ''}
+                            ${project.links ? project.links.map(link => 
+                                `<a href="${link.url}" target="_blank">${link.text}</a>`
+                            ).join(' | ') : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            renderLanguages() {
+                const container = document.getElementById('languages');
+                container.innerHTML = this.data.languages.map(lang => `
+                    <div class="language-item">
+                        <strong>${lang.name}</strong> Oral: ${lang.oral} – Written: ${lang.written}
+                    </div>
+                `).join('');
+            }
+
+            showError(message) {
+                document.body.innerHTML = `
+                    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+                        <h2>Error</h2>
+                        <p>${message}</p>
+                        <button onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize CV when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new CVLoader();
+        });
+    </script>
+    <footer style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee; font-size: 10pt; color: #666;">
+        <p>Generated with <a href="https://github.com/mtrabelsi/rembg-cv-maker" target="_blank" style="color: #0066cc;">RemBG CV Maker</a> | 
+        Powered by <a href="https://www.rembg.com" target="_blank" style="color: #0066cc;">RemBG.com</a> - AI Background Removal</p>
+    </footer>
+</body>
+</html>

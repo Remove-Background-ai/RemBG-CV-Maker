@@ -1,0 +1,4 @@
+# Placeholder for cv-demo.png
+# Add your CV screenshot here showing the final result
+# Recommended size: 800x1000px (A4 ratio)
+# Show the CV in a browser window with the print preview

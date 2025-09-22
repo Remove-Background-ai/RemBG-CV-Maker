@@ -1,0 +1,212 @@
+{
+  "personalInfo": {
+    "name": "Marwen Trabelsi",
+    "title": "Software Engineer (Bac + 5)",
+    "location": "Berlin, Germany",
+    "phone": "+49177xxxxx",
+    "email": "support@rembg.com",
+    "email2": "support@rembg.com",
+    "links": {
+      "stackoverflow": "https://stackoverflow.com/users/1154692/marwen-trabelsi",
+      "github": "https://github.com/mtrabelsi",
+      "linkedin": "https://www.linkedin.com/in/marwenprojob/"
+    }
+  },
+  "summary": "Experienced Full Stack Software Engineer with extensive expertise in JavaScript design patterns and comprehensive software architecture. Proven track record of delivering high-quality solutions from initial proof-of-concept development to large-scale enterprise applications, with demonstrated ability to scale production systems and meticulous attention to detail throughout the entire development lifecycle.",
+  "workExperience": [
+    {
+      "period": "2021 - 2025",
+      "title": "Senior Full Stack Engineer",
+      "company": "Siemens Mobility",
+      "companyUrl": "https://www.siemens.com/mobility",
+      "companyDisplayUrl": "www.siemens.com/mobility",
+      "achievements": [
+        "Founding engineer for Yunex Traffic GmbH, a Siemens Mobility spin-off that was successfully acquired by Atlantia in 2022",
+        "Architected and developed next-generation traffic management systems for smart cities across Europe",
+        "Led the development of real-time traffic optimization algorithms using machine learning and IoT sensor data",
+        "Built scalable microservices infrastructure handling 10M+ daily traffic events for urban mobility solutions",
+        "Designed and implemented cloud-native platforms for intelligent transportation systems (ITS)",
+        "Collaborated with city planners and traffic engineers to deliver data-driven mobility solutions"
+      ],
+      "technologies": "Javascript, TypeScript, React, Node.js, Python, AWS, Docker, Kubernetes, IoT, Machine Learning"
+    },
+    {
+      "period": "2018 - 2021",
+      "title": "Full Stack Engineer",
+      "company": "IOTA Foundation",
+      "companyUrl": "https://www.iota.org",
+      "companyDisplayUrl": "www.iota.org",
+      "achievements": [
+        "Officially welcomed to IOTA Foundation team with recognition for expertise in multi-threading and concurrency in Linux systems",
+        "Core developer for IOTA theme library iota-css-theme",
+        "Built open source Proof of concepts for diversity of project using Crypto Currency",
+        "Maintain and take responsibility for our private internal tooling",
+        "Built an Industry 4.0 gateway between IOTA and IOT device",
+        "Assisted partners in building applications on top of the IOTA protocol"
+      ],
+      "technologies": "Javascript, TypeScript, React, Node.js, CSS, C, Linux Systems, Multi-threading, Concurrency"
+    },
+    {
+      "period": "2017 - 2018",
+      "title": "Frontend Engineer",
+      "company": "Relayr",
+      "companyUrl": "https://www.relayr.io",
+      "companyDisplayUrl": "www.relayr.io",
+      "achievements": [
+        "Working for big customers like CISCO, DEUTSCHE BAHN and PREDIX",
+        "Working closely with designers and Backend team to deliver Widgets / Dashboard for showing complex and huge IoT data",
+        "Taking decisions and discussing technologies",
+        "Bootsraping customer projects and dashboards",
+        "Maintain and take responsability for our private repositories"
+      ],
+      "technologies": "Javascript/ React.js/ Node.js/ Typescript, C"
+    },
+    {
+      "period": "2015 - 2016",
+      "title": "Software Engineer",
+      "company": "eXo platform",
+      "companyUrl": "https://www.exoplatform.com",
+      "companyDisplayUrl": "www.exoplatform.com",
+      "achievements": [
+        "Contributer and maintainer of an Open source Enterprise Social Intranet Platform.",
+        "Deliver patches and bug fixes to our customers",
+        "Communication with our multinational customers",
+        "Participated in the development of the latest platform releases"
+      ],
+      "technologies": "JIRA, Java/ Debugging/ Javascript/ Angular.js"
+    },
+    {
+      "period": "2013 - 2014",
+      "title": "Freelance work",
+      "company": "www.conceptlab.tn",
+      "companyUrl": "https://www.conceptlab.tn",
+      "companyDisplayUrl": "www.conceptlab.tn",
+      "description": "Development of a POC Multiplayer/Multi-Channel card game using HTML5/ Node.js/ Socket.io : Chkobba Multiplayer Now its a community game +10K users : WEB / Android / IOS"
+    },
+    {
+      "period": "2012 - 2012",
+      "title": "Internship",
+      "company": "www.hmt.tn",
+      "companyUrl": "https://www.hmt.tn",
+      "companyDisplayUrl": "www.hmt.tn",
+      "description": "Development of a GPS monitoring platform trucks, a multithreaded server communicating with the GPS and a web interface for monitoring and sending commands OGTS",
+      "achievements": [
+        "Reverse engineered an unmanaged GPS protocol of TK-103 model ( network sniffing using wireshark )",
+        "Developed multithreaded server able to talk in the TK-103 revealed protocol with multiples GPSs simultaneously.",
+        "Developed UI able to communicate with the server and showing reported data in realtime."
+      ],
+      "technologies": "Wireshark /Java/JPA/JSP/HTM"
+    }
+  ],
+  "education": [
+    {
+      "period": "2009 – 2015",
+      "degree": "Software engineering and systems",
+      "school": "Institut Suprieur de l'Informatique ISI.",
+      "description": "Pretty good awarded, ranked 5th on the institute"
+    },
+    {
+      "period": "2008 – 2009",
+      "degree": "Bachelor degree",
+      "school": "Bachelor degree in Computer Science.",
+      "description": "Good awarded, ranked 1th of the class"
+    }
+  ],
+  "skills": {
+    "technologies": "JavaScript ES6, TypeScript, React, Angular, Node.js, Python, Java/JEE, HTML5, CSS3, SASS/LESS, Redux, Express.js, Socket.io, WebRTC, NoSQL (MongoDB, OrientDB), Linux, Git, Webpack, Docker, Kubernetes, AWS, Machine Learning, Neural Networks, Reverse Engineering, API Development, Continuous Integration",
+    "blockchain": "IOTA Tangle, Smart Contracts, DeFi, Web3, DApps, Cryptocurrency APIs, Token Economics",
+    "designPatterns": "Prototype, Flux, Factory , Strategy, Proxy, Observer, Decorator (Monkey patching)"
+  },
+  "publicProjects": [
+    {
+      "year": "2024",
+      "title": "RemBG",
+      "url": "https://www.rembg.com",
+      "displayUrl": "www.RemBG.com",
+      "description": "Production-ready SAAS AI Platform • State-of-the-art Computer Vision",
+      "links": [
+        {
+          "text": "rembg.js",
+          "url": "https://github.com/Remove-Background-ai/rembg.js"
+        },
+        {
+          "text": "Cross platform Desktop apps",
+          "url": "https://github.com/Remove-Background-ai/free-rembg-desktop"
+        }
+      ]
+    },
+    {
+      "year": "2018",
+      "title": "IOTA Foundation Recognition",
+      "description": "Multi-threading & Concurrency Expertise • Linux Systems • Open Source Leadership",
+      "links": [
+        {
+          "text": "Official Welcome Post",
+          "url": "https://medium.com/@DavidSonstebo/welcome-marwen-trabelsi-to-the-iota-foundation-5bf7d6840824"
+        }
+      ]
+    },
+    {
+      "year": "2017",
+      "title": "Digital Ocean Recognition",
+      "description": "Universal React, Node.js, Server-Side Rendering • Community Recognition",
+      "links": [
+        {
+          "text": "Featured Tutorial Author",
+          "url": "https://www.digitalocean.com/community/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app#running-the-complete-app"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "title": "VisaPhoto.de",
+      "url": "https://www.visaphoto.de/",
+      "displayUrl": "www.visaphoto.de",
+      "description": "Premium Mobile Photo SDK • ISO/IEC 29794-5 Compliant • Biometric Standards",
+      "additionalInfo": "Face Detection • Quality Assessment • Auto-cropping"
+    },
+    {
+      "year": "2016",
+      "title": "eXo Wiki Page Restore",
+      "description": "Java JEE, eXo Platform / Portal container",
+      "links": [
+        {
+          "text": "GitHub Repository",
+          "url": "https://github.com/mtrabelsi/eXo-Wiki-page-restore"
+        }
+      ]
+    },
+    {
+      "year": "2014",
+      "title": "Chkobba Multiplayer Card Game",
+      "description": "Javascript/Node.js/Cordova - 100K+ Downloads",
+      "links": [
+        {
+          "text": "MVP Demo",
+          "url": "https://www.youtube.com/watch?v=cqmMIKcnFVY"
+        },
+        {
+          "text": "Production App",
+          "url": "https://play.google.com/store/apps/details?id=com.farzilla.chkobbatn&hl=en"
+        }
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "name": "ENGLISH",
+      "oral": "Good",
+      "written": "Very good"
+    },
+    {
+      "name": "FRENCH",
+      "oral": "Bi-native",
+      "written": "Bi-native"
+    },
+    {
+      "name": "ARABIC",
+      "oral": "Native Speaker",
+      "written": "Native Speaker"
+    }
+  ]
+}
