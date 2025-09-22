@@ -3,26 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">RemBG CV Maker - Loading...</title>
+    <title id="page-title">RemBG.com CV Maker - Loading...</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="cv-container">
+        <!-- Print Button - Outside header -->
+        <div class="print-button-container">
+            <button class="print-button" id="print-button" title="Get my CV">
+                <svg class="print-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 6,2 18,2 18,9"></polyline>
+                    <path d="M6,18H4a2,2,0,0,1-2-2V11a2,2,0,0,1,2-2H20a2,2,0,0,1,2,2v5a2,2,0,0,1-2,2H18"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Get my CV
+            </button>
+        </div>
+        <div class="color-picker-container" id="color-picker-container">
+                <div class="color-picker-wrapper">
+                    <input type="color" id="background-color-picker" value="#ff8c00" title="Change background color">
+                    <div class="color-picker-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="13.5" cy="6.5" r=".5"></circle>
+                            <circle cx="17.5" cy="10.5" r=".5"></circle>
+                            <circle cx="8.5" cy="7.5" r=".5"></circle>
+                            <circle cx="6.5" cy="12.5" r=".5"></circle>
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="color-picker-label"></div>
+        </div>
         <!-- Header -->
         <header class="header">
-            <h1 class="name" id="cv-name">Loading...</h1>
-            <h2 class="title" id="cv-title">Loading...</h2>
-            <div class="contact-info" id="contact-info">
-                <span id="location">Loading...</span>
-                <span>|</span>
-                <span id="phone">Loading...</span>
-                <span>|</span>
-                <span id="email">Loading...</span>
-                <span>|</span>
-                <span id="email2">Loading...</span>
-            </div>
-            <div class="links" id="social-links">
-                <span>Loading...</span>
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="name" id="cv-name">Loading...</h1>
+                    <h2 class="title" id="cv-title">Loading...</h2>
+                    <div class="contact-info" id="contact-info">
+                        <span id="location">Loading...</span>
+                        <span>|</span>
+                        <span id="phone">Loading...</span>
+                        <span>|</span>
+                        <span id="email">Loading...</span>
+                        <span>|</span>
+                        <span id="email2">Loading...</span>
+                    </div>
+                    <div class="links" id="social-links">
+                        <span>Loading...</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="profile-image-container" id="profile-image-container">
+                        <input type="file" id="profile-image-input" accept="image/*" style="display: none;">
+                        <div class="profile-image-placeholder" id="profile-image" onclick="document.getElementById('profile-image-input').click()">
+                            <div class="placeholder-circle" id="placeholder-circle">
+                                <span class="placeholder-text" id="placeholder-text">Click to Upload</span>
+                            </div>
+                        </div>
+
+                        <div class="upload-progress" id="upload-progress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+                        <button class="remove-image-btn" id="remove-image-btn" style="display: none;">
+                            <span class="remove-icon">×</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -117,7 +166,7 @@
 
             renderPersonalInfo() {
                 const { personalInfo } = this.data;
-                
+
                 document.getElementById('page-title').textContent = `${personalInfo.name} - CV`;
                 document.getElementById('cv-name').textContent = personalInfo.name;
                 document.getElementById('cv-title').textContent = personalInfo.title;
@@ -199,7 +248,7 @@
                             <strong>${project.title}${project.url ? `: <a href="${project.url}" target="_blank">${project.displayUrl}</a>` : ''}</strong><br>
                             <span class="project-tech">${project.description}</span><br>
                             ${project.additionalInfo ? `<span class="project-tech">${project.additionalInfo}</span><br>` : ''}
-                            ${project.links ? project.links.map(link => 
+                            ${project.links ? project.links.map(link =>
                                 `<a href="${link.url}" target="_blank">${link.text}</a>`
                             ).join(' | ') : ''}
                         </div>
@@ -227,13 +276,347 @@
             }
         }
 
+        // Profile Image Upload Handler
+        class ProfileImageUploader {
+            constructor() {
+                this.input = document.getElementById('profile-image-input');
+                this.container = document.getElementById('profile-image-container');
+                this.placeholder = document.getElementById('profile-image');
+                this.placeholderCircle = document.getElementById('placeholder-circle');
+                this.placeholderText = document.getElementById('placeholder-text');
+                this.progressContainer = document.getElementById('upload-progress');
+                this.progressFill = document.getElementById('progress-fill');
+                this.removeBtn = document.getElementById('remove-image-btn');
+                this.printButton = document.getElementById('print-button');
+                this.colorPicker = document.getElementById('background-color-picker');
+                this.colorPickerContainer = document.getElementById('color-picker-container');
+
+                this.setupEventListeners();
+                this.loadSavedColor();
+            }
+
+            setupEventListeners() {
+                this.input.addEventListener('change', (e) => this.handleFileSelect(e));
+                this.removeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.removeImage();
+                });
+                this.colorPicker.addEventListener('input', (e) => this.changeBackgroundColor(e.target.value));
+            }
+
+            loadSavedColor() {
+                const savedColor = localStorage.getItem('profileImageColor');
+                if (savedColor) {
+                    this.colorPicker.value = savedColor;
+                    this.applyColor(savedColor);
+                }
+            }
+
+            saveColor(color) {
+                localStorage.setItem('profileImageColor', color);
+            }
+
+            applyColor(color) {
+                // Apply color to placeholder circle with !important
+                this.placeholderCircle.style.setProperty('background-color', color, 'important');
+                this.placeholderCircle.style.setProperty('box-shadow', `0 3px 12px ${color}40`, 'important');
+                // Apply color to hover state
+                const hoverStyle = document.createElement('style');
+                hoverStyle.textContent = `
+                    .profile-image-placeholder:hover .placeholder-circle {
+                        background-color: ${this.lightenColor(color, 10)} !important;
+                        box-shadow: 0 4px 12px ${color}60 !important;
+                    }
+                    .profile-image-placeholder:hover .profile-image {
+                        box-shadow: 0 4px 12px ${color}60 !important;
+                        transform: scale(1.05);
+                    }
+                `;
+
+                // Apply color to print styles with higher specificity
+                const printStyle = document.createElement('style');
+                printStyle.id = 'dynamic-color-print';
+                printStyle.textContent = `
+                    @media print {
+                        .profile-image-container .placeholder-circle {
+                            background-color: ${color} !important;
+                        }
+                        .profile-image-container .profile-image {
+                        }
+                        .profile-image-container .upload-progress {
+                        }
+                        .profile-image-container .progress-fill {
+                            background-color: ${color} !important;
+                        }
+                    }
+                `;
+
+                // Remove existing dynamic color styles
+                const existingHoverStyle = document.getElementById('dynamic-color-hover');
+                const existingPrintStyle = document.getElementById('dynamic-color-print');
+                if (existingHoverStyle) {
+                    existingHoverStyle.remove();
+                }
+                if (existingPrintStyle) {
+                    existingPrintStyle.remove();
+                }
+
+                // Add new dynamic color styles
+                document.head.appendChild(hoverStyle);
+                document.head.appendChild(printStyle);
+            }
+
+            lightenColor(color, percent) {
+                const num = parseInt(color.replace("#", ""), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = (num >> 16) + amt;
+                const G = (num >> 8 & 0x00FF) + amt;
+                const B = (num & 0x0000FF) + amt;
+                return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                    (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+            }
+
+            changeBackgroundColor(color) {
+                this.applyColor(color);
+                this.saveColor(color);
+            }
+
+            handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select a valid image file.');
+                    return;
+                }
+
+                // Validate file size (10MB limit)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('File size must be less than 10MB.');
+                    return;
+                }
+
+                this.uploadImage(file);
+            }
+
+            async uploadImage(file) {
+                try {
+                    this.showProgress();
+                    this.updateProgress(10);
+
+                    const formData = new FormData();
+                    formData.append('profileImage', file);
+
+                    this.updateProgress(30);
+
+                    const response = await fetch('/api/upload-profile-image', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    this.updateProgress(70);
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Upload failed');
+                    }
+
+                    const result = await response.json();
+
+                    this.updateProgress(90);
+
+                    if (result.success) {
+                        this.displayImage(result.imageUrl);
+                        this.updateProgress(100);
+                        setTimeout(() => this.hideProgress(), 1000);
+                    } else {
+                        throw new Error(result.error || 'Processing failed');
+                    }
+
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    this.hideProgress();
+                    this.enablePrintButton(); // Ensure button is re-enabled on error
+                    alert('Error uploading image: ' + error.message);
+                }
+            }
+
+            showProgress() {
+                this.placeholder.style.display = 'none';
+                this.progressContainer.style.display = 'block';
+                this.disablePrintButton();
+
+                // Apply saved color to progress elements
+                const savedColor = localStorage.getItem('profileImageColor') || '#ff8c00';
+                this.progressContainer.style.setProperty('border-color', savedColor, 'important');
+                this.progressFill.style.setProperty('background-color', savedColor, 'important');
+            }
+
+            hideProgress() {
+                this.progressContainer.style.display = 'none';
+                this.placeholder.style.display = 'block';
+                this.enablePrintButton();
+            }
+
+            disablePrintButton() {
+                if (this.printButton) {
+                    this.printButton.disabled = true;
+                }
+            }
+
+            enablePrintButton() {
+                if (this.printButton) {
+                    this.printButton.disabled = false;
+                }
+            }
+
+            updateProgress(percentage, text) {
+                this.progressFill.style.width = percentage + '%';
+            }
+
+            displayImage(imageUrl) {
+                // Create image element
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = 'Profile Image';
+                img.className = 'profile-image';
+
+                // Replace placeholder with image
+                this.placeholderCircle.innerHTML = '';
+                this.placeholderCircle.appendChild(img);
+                this.placeholderCircle.style.backgroundColor = 'transparent';
+                this.placeholderCircle.style.border = 'none';
+                this.placeholderCircle.style.boxShadow = 'none';
+
+                    Object.assign(img.style, {
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        borderRadius: '9999px',
+                        position: 'relative',
+                        zIndex: '1'
+                    });
+
+                // Apply saved color to image border
+                const savedColor = localStorage.getItem('profileImageColor') || '#ff8c00';
+                img.style.setProperty('box-shadow', `0 3px 12px ${savedColor}40`, 'important');
+                img.style.color = savedColor
+                // Show remove button
+                this.removeBtn.style.display = 'flex';
+            }
+
+            async removeImage() {
+                console.log('Removing image...');
+
+                try {
+                    // Call API to remove the image from server
+                    const response = await fetch('/api/remove-profile-image', {
+                        method: 'DELETE'
+                    });
+
+                    if (!response.ok) {
+                        console.warn('Failed to remove image from server, but continuing with UI reset');
+                    }
+                } catch (error) {
+                    console.warn('Error removing image from server:', error);
+                    // Continue with UI reset even if server call fails
+                }
+
+                // Reset to placeholder state
+                this.placeholderCircle.innerHTML = '<span class="placeholder-text">Click to Upload</span>';
+                const savedColor = localStorage.getItem('profileImageColor') || '#ff8c00';
+                this.applyColor(savedColor);
+
+                // Hide remove button
+                this.removeBtn.style.display = 'none';
+
+                // Reset file input
+                this.input.value = '';
+
+                console.log('Image removed successfully');
+            }
+        }
+
+        // Print functionality
+        function initPrintButton() {
+            const printButton = document.getElementById('print-button');
+            if (printButton) {
+                printButton.addEventListener('click', () => {
+                    window.print();
+                });
+            }
+        }
+
+        // Apply saved color immediately on page load
+        (function() {
+            const savedColor = localStorage.getItem('profileImageColor');
+            if (savedColor) {
+                // Apply color immediately to avoid flash of orange
+                const style = document.createElement('style');
+                style.textContent = `
+                    .placeholder-circle {
+                        background-color: ${savedColor} !important;
+
+                        box-shadow: 0 3px 12px ${savedColor}40 !important;
+                    }
+                    .profile-image-placeholder:hover .placeholder-circle {
+                        background-color: ${lightenColor(savedColor, 10)} !important;
+
+                        box-shadow: 0 4px 12px ${savedColor}60 !important;
+                    }
+                    .profile-image-placeholder:hover .profile-image {
+
+                        box-shadow: 0 4px 12px ${savedColor}60 !important;
+                        transform: scale(1.05);
+                    }
+                    @media print {
+                        .profile-image-container .placeholder-circle {
+                            background-color: ${savedColor} !important;
+                            border: 2px solid ${savedColor} !important;
+                        }
+                        .profile-image-container .profile-image {
+                            border: 2px solid ${savedColor} !important;
+                        }
+                        .profile-image-container .upload-progress {
+                            border: 2px solid ${savedColor} !important;
+                        }
+                        .profile-image-container .progress-fill {
+                            background-color: ${savedColor} !important;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Helper function for lightening colors
+            function lightenColor(color, percent) {
+                const num = parseInt(color.replace("#", ""), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = (num >> 16) + amt;
+                const G = (num >> 8 & 0x00FF) + amt;
+                const B = (num & 0x0000FF) + amt;
+                return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                    (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+            }
+        })();
+
+
+
         // Initialize CV when page loads
+        let profileImageUploader;
         document.addEventListener('DOMContentLoaded', () => {
             new CVLoader();
+            profileImageUploader = new ProfileImageUploader();
+            initPrintButton();
         });
     </script>
     <footer style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #eee; font-size: 10pt; color: #666;">
-        <p>Generated with <a href="https://github.com/mtrabelsi/rembg-cv-maker" target="_blank" style="color: #0066cc;">RemBG CV Maker</a> | 
+        <p>Generated with <a href="https://github.com/mtrabelsi/rembg-cv-maker" target="_blank" style="color: #0066cc;">RemBG CV Maker</a> |
         Powered by <a href="https://www.rembg.com" target="_blank" style="color: #0066cc;">RemBG.com</a> - AI Background Removal</p>
     </footer>
 </body>

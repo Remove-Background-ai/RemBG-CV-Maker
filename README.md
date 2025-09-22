@@ -17,12 +17,25 @@ A modern, JSON-driven CV generator that loads content dynamically from a structu
 npm install
 ```
 
-### 2. Start the Server
+### 2. Configure Environment Variables
+Copy the sample environment file and add your RemBG API key:
+```bash
+cp .env.sample .env
+```
+
+Edit `.env` and add your RemBG API key:
+```
+REMBG_API_KEY=your_actual_api_key_here
+```
+
+Get your API key from [RemBG.com](https://www.rembg.com)
+
+### 3. Start the Server
 ```bash
 npm start
 ```
 
-### 3. View Your CV
+### 4. View Your CV
 Open your browser and go to: `http://localhost:3000`
 
 ## Available Scripts
@@ -40,8 +53,20 @@ cv/
 ├── index.html         # Main CV page with dynamic loading
 ├── styles.css         # CSS styles (unchanged)
 ├── package.json       # Dependencies and scripts
+├── .env               # Environment variables (create from .env.sample)
+├── .env.sample        # Sample environment file
+├── .gitignore         # Git ignore file (includes .env)
 └── README.md          # This file
 ```
+
+## Environment Variables
+
+The application uses the following environment variables:
+
+- `REMBG_API_KEY` - Your RemBG API key for background removal (required)
+- `PORT` - Server port (default: 3000)
+
+Create a `.env` file from `.env.sample` and configure these variables.
 
 ## API Endpoints
 
