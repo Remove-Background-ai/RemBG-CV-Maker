@@ -6,6 +6,8 @@ A JSON-driven CV generator with AI background removal. Upload a profile photo an
 
 ![RemBG CV Maker Demo](assets/cv-demo.png)
 
+![CV JSON Demo](assets/cv-json-demo.png)
+
 ## Features
 
 - **Background Removal**: AI-powered background removal for profile photos
